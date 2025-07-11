@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 
@@ -25,14 +24,22 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECRET_KEY и DEBUG
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-fallback-key-for-development")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['osimiedu.online', 'www.osimiedu.online', 'localhost', '127.0.0.1']  # Для Railway и локальной разработки
+ALLOWED_HOSTS = [
+    'osimiedu.online', 
+    'www.osimiedu.online', 
+    'localhost', 
+    '127.0.0.1',
+    'dars-production.up.railway.app',  # Railway domain
+    '.railway.app'  # Any Railway subdomain
+]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://osimiedu.online",
     "https://www.osimiedu.online",
+    "https://dars-production.up.railway.app",
 ]
 # Application definition
 
@@ -66,6 +73,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -135,6 +143,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Additional locations of static files
+STATICFILES_DIRS = [
+    BASE_DIR / 'lessons' / 'static',
+]
+
+# Simplified static file serving for development
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
