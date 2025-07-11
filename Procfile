@@ -1,0 +1,1 @@
+web: cd mypythoncourse && gunicorn mypythoncourse.wsgi --log-file -
