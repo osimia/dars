@@ -28,9 +28,12 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['.railway.app', 'localhost', '127.0.0.1']  # Для Railway и локальной разработки
+ALLOWED_HOSTS = ['osimiedu.online', 'www.osimiedu.online', 'localhost', '127.0.0.1']  # Для Railway и локальной разработки
 
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://osimiedu.online",
+    "https://www.osimiedu.online",
+]
 # Application definition
 
 INSTALLED_APPS = [
