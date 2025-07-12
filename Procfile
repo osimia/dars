@@ -1,1 +1,1 @@
-web: cd mypythoncourse && gunicorn mypythoncourse.wsgi --log-file -
+web: cd mypythoncourse && python manage.py collectstatic --noinput && python manage.py migrate && gunicorn mypythoncourse.wsgi:application --bind 0.0.0.0:$PORT

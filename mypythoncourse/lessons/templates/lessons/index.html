@@ -326,7 +326,10 @@
         @media (min-width: 1025px) {
             #sidebar {
                 padding: 30px;
-                min-height: 80vh;
+                height: 100vh;         /* Делаешь всю высоту экрана */
+                overflow-y: auto;      /* Включаешь прокрутку */
+                position: sticky;      /* Чтобы не улетал при прокрутке */
+                top: 0;                /* Закрепляешь относительно верха */
             }
             
             .content-area {
